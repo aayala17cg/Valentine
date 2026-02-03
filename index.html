@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Be My Valentine, Raquel?</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,38 +15,47 @@
       justify-content: center;
       color: #fff;
       text-align: center;
-      background:
-        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-        url('us.JPG') center / cover no-repeat;
       overflow: hidden;
+
+      background-image:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url('us.JPG');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 40px;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 36px 30px;
       border-radius: 22px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-      max-width: 420px;
-      backdrop-filter: blur(6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+      width: min(520px, 88vw);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     h1 {
-      font-size: 2.3em;
-      margin-bottom: 25px;
+      font-size: clamp(28px, 4.5vw, 42px);
+      margin: 0 0 22px;
+      line-height: 1.15;
     }
 
     .buttons {
       position: relative;
       height: 120px;
+      margin-top: 12px;
     }
 
     button {
-      font-size: 1.1em;
-      padding: 12px 28px;
+      font-size: 18px;
+      padding: 12px 26px;
       border: none;
-      border-radius: 25px;
+      border-radius: 999px;
       cursor: pointer;
       position: absolute;
+      user-select: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
     .yes {
@@ -58,14 +69,78 @@
     .no {
       background-color: #ffffff;
       color: #ff4d6d;
-      left: 10%;
+      left: 12%;
       top: 10px;
-      transition: top 0.15s, left 0.15s;
+      transition: top 0.12s, left 0.12s;
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
+  <div class="card" id="card">
     <h1>Raquel, will you be my Valentine? 💕</h1>
+
     <div class="buttons">
-      <button class=
+      <button class="yes" id="yesBtn">Yes 💘</button>
+      <button class="no" id="noBtn">No 🙃</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    function moveNoButton() {
+      // Move within the card area so it always stays visible
+      const maxX = 280;  // horizontal range
+      const maxY = 70;   // vertical range
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("click", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          width:100vw;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          text-align:center;
+          color:white;
+          background-image:
+            linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+            url('us.JPG');
+          background-position:center;
+          background-size:cover;
+          background-repeat:no-repeat;
+          padding: 24px;
+        ">
+          <div style="
+            background: rgba(255,255,255,0.16);
+            padding: 34px 26px;
+            border-radius: 22px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+            width: min(520px, 88vw);
+          ">
+            <h1 style="margin:0 0 10px; font-size: clamp(30px, 5vw, 46px);">YAY RAQUEL!!! 💐💖</h1>
+            <p style="margin:0; font-size: clamp(18px, 2.6vw, 22px);">
+              You just made my Valentine’s Day perfect ❤️
+            </p>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
